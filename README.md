@@ -49,5 +49,3 @@ flutter run
 This project is licensed under the [MIT License](LICENSE).
 
 ---
-
-Let me know if you want a version tailored for **Android only**, **Flutter Web**, or one with **Firebase integration**, etc.
