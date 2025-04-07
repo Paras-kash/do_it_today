@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, unused_field
+// ignore_for_file: use_build_context_synchronously, unused_field, unrelated_type_equality_checks
 
 import 'package:flutter/material.dart';
 
@@ -10,21 +10,22 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
-  final _fornKey = GlobalKey<FormState>();
   bool changeButton = false;
 
+  final _formKey = GlobalKey<FormState>();
+
   moveToHome(BuildContext context) async {
-    if (_fornKey.currentState!.validate()) {
+    if (_formKey.currentState!.validate()) {
       setState(() {
         changeButton = true;
       });
-
-      await Future.delayed(Duration(milliseconds: 500));
+      await Future.delayed(Duration(seconds: 2));
       Navigator.pushNamed(context, '/home');
-      setState(() {
-        changeButton = false;
-      });
     }
+
+    setState(() {
+      changeButton = false;
+    });
   }
 
   @override
@@ -53,7 +54,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             ),
             SizedBox(height: 40),
             Form(
-              key: _fornKey,
+              key: _formKey,
               child: Column(
                 children: [
                   Padding(
@@ -84,9 +85,19 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     padding: const EdgeInsets.only(left: 16, right: 16),
                     child: TextFormField(
                       validator: (value) {
-                        if (value!.isEmpty) {
+                        if (value == null || value.isEmpty) {
                           return 'Please enter your email';
                         }
+
+                        // Regular expression for basic email validation
+                        final emailvalidator = RegExp(
+                          r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                        );
+
+                        if (!emailvalidator.hasMatch(value)) {
+                          return 'Please enter a valid email';
+                        }
+
                         return null;
                       },
                       keyboardType: TextInputType.emailAddress,
@@ -113,8 +124,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     ),
                     child: TextFormField(
                       validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter your phone number';
+                        if (value!.length < 10) {
+                          return 'Please enter valid Phone Number';
                         }
                         return null;
                       },
@@ -143,7 +154,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     ),
                     child: TextFormField(
                       validator: (value) {
-                        if (value!.isEmpty) {
+                        if (value!.length < 6) {
                           return 'Please enter your password';
                         }
                         return null;
@@ -169,7 +180,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               ),
             ),
 
-            SizedBox(height: 250),
+            SizedBox(height: 3),
             InkWell(
               onTap: () => moveToHome(context),
               child: Container(
@@ -182,8 +193,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 child: Center(
                   child:
                       changeButton
-                          ? Icon(Icons.done, color: Colors.black)
-                          : Text(
+                          ? Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: const CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.white,
+                            ),
+                          )
+                          : const Text(
                             'Register',
                             style: TextStyle(
                               fontSize: 15,
@@ -193,7 +210,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 04),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

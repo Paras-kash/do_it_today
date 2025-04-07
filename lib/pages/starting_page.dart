@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print
 
-import 'package:do_it_today/utils/routes.dart';
+import 'package:noted/utils/routes.dart';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

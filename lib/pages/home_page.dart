@@ -1,5 +1,6 @@
+import 'package:noted/widgetgs/drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,23 +16,10 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
         centerTitle: false,
-        title: Text(
-          "Hi,Paras",
-          style: GoogleFonts.dmSans(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
+        title: Text('Hi,Paras'),
       ),
-      drawer: Drawer(
-        backgroundColor: Colors.white,
-        child: ListView(
-          children: [ListTile(leading: Icon(Icons.home, color: Colors.brown))],
-        ),
-      ),
+      drawer: DrawerPage(),
       body: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
         
             

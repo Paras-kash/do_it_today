@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously, unused_field, no_leading_underscores_for_local_identifiers
 
-import 'package:do_it_today/utils/routes.dart';
+import 'package:noted/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -143,7 +143,10 @@ class _LoginPageState extends State<LoginPage> {
                     child: Center(
                       child:
                           changeButton
-                              ? Icon(Icons.done, color: Colors.black)
+                              ? CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: Colors.white,
+                                )
                               : Text(
                                 'Login',
                                 style: GoogleFonts.outfit(
